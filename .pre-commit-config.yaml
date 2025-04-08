@@ -5,13 +5,15 @@ repos:
         name: Spotless
         entry: mvn spotless:apply
         language: system
-        files: \.java$
+        pass_filenames: false
+        stages: [ pre-commit ]
 
       - id: checkstyle
         name: Checkstyle
         entry: mvn checkstyle:check
         language: system
-        files: \.java$
+        pass_filenames: false
+        stages: [ pre-commit ]
 
       - id: test
         name: Tests

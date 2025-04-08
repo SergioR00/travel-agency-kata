@@ -5,5 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomersJPARepository extends JpaRepository<CustomerEntity,String> {
-}
+public interface CustomersJPARepository extends JpaRepository<CustomerEntity, String> {}
