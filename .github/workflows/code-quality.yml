@@ -26,7 +26,6 @@ jobs:
       - run: docker push sergior00/travel-agency-kata:latest
  
   deploy:
-    enviroment: poc
     needs: build
     runs-on: ubuntu-latest
     steps:
