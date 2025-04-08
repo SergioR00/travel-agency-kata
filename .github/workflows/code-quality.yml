@@ -1,0 +1,34 @@
+name: Travel-Agency kata
+run-name: Travel-Agency kata
+on: [push]
+jobs:
+  
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Maven
+        uses: sormuras/maven-action@v2
+        with:
+          maven-version: '3.9.9'
+      - name: Spotless
+        run: mvn spotless:check
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: docker build -t sergior00/travel-agency-kata:latest .
+      - name: Login Docker-hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{secrets.DOCKER_HUB_USER}}
+          password: ${{secrets.DOCKER_HUB_TOKEN}}
+      - run: docker push sergior00/travel-agency-kata:latest
+ 
+  deploy:
+    enviroment: poc
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: curl ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
